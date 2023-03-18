@@ -6,6 +6,7 @@ import Home from '../src/pages/Home/Home.jsx'
 import Profile from '../src/pages/Profile/Profile.jsx' 
 import Explore from '../src/pages/Explore/Explore.jsx' 
 import Signin from '../src/pages/Signin/Signin.jsx' 
+import Error from '../src/pages/Error/Error.jsx' 
 
 import {createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
 
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
   {
     // Page layout
     path : "/",
+    errorElement: <Error/>,
     element: <Layout/>,
     children: [
       {
