@@ -13,7 +13,6 @@ const Signin = () => { // For the username and Password in signin
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     // for signup form case
-    const [email, setEmail] = useState("");
 
     // initializing the dispatch - is a packet dispatecher of the actions of reducer - dispatch(reducer's action(data given/ taken))
     // this dispatch go to the given action reducer and after that stores that data into the browser if success
@@ -36,20 +35,6 @@ const Signin = () => { // For the username and Password in signin
             dispatch(loginFailed());
         }
     };
-
-    // for signup funtionality
-    const handleSignup = async (e) => {
-        e.preventDefault();
-        dispatch(loginStart());
-
-        try {
-            const res = await axios.post("/auth/signup", {username,email,  password, });
-            dispatch(loginSuccess(res.data));
-            navigate("/"); // could be the different pages and the link after signup could be signin page
-        } catch (error) {
-            dispatch(loginFailed());
-        }
-    }
 
     return (<form className='bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-8/12 md:w-6/12 mx-auto gap-10 '>
         <h2 className='text-3xl font-bold text-center'>

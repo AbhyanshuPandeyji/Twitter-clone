@@ -2,8 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux';
 import {changeProfile, logout} from '../../redux/userSlice.js';
-import {useNavigate} from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 
 // firebse functionality
 import app from '../../firebase.js'
@@ -58,7 +57,7 @@ const EditProfile = ({setOpen}) => { // current logged in user
                     }`, { // passing the url of the picture in the profilePicture string in the user data
                         profilePicture: downloadURL
                     });
-                console.log(updateProfile);
+                    console.log(updateProfile);
 
                 } catch (error) {
                     console.log('error', error)
@@ -71,12 +70,12 @@ const EditProfile = ({setOpen}) => { // current logged in user
             });
         });
     };
-    
-        const handleDelete = async () => {
+
+    const handleDelete = async () => {
             const deleteProfile = await axios.delete(`/users/${currentUser._id}`);
             dispatch(logout());
-            navigate("/signin");
-        };
+        navigate("/signin");
+    };
 
 
     // to refresh when upload an image
@@ -101,10 +100,12 @@ const EditProfile = ({setOpen}) => { // current logged in user
                     <input type="file" className='bg-transparent border border-slate-500 rounded p-2' accept='image/*'
                         onChange={
                             (e) => setImg(e.target.files[0])
-                        }/>)}
+                        }/>
+                )
+            }
                 <p>Delete Accout</p>
-                <button onClick={handleDelete}
-                    className='bg-red-500 text-white py-2 rounded-full'>Delete Account</button>
+                <button className='bg-red-500 text-white py-2 rounded-full'
+                    onClick={handleDelete}>Delete Account</button>
             </div>
         </div>
     );
