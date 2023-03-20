@@ -1,54 +1,114 @@
 // i will our form to signin
-import React from 'react'
+import React, {useState} from 'react'
+import axios from 'axios';
 
-const Signin = () => {
-  return (
-      <form className='bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-6/12 mx-auto gap-10 '>
-        <h2 className='text-3xl font-bold text-center'> Signing To Twitter</h2>
+// for react to redux functionality
+import {useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom'
 
-        <input 
-          typeof="text" 
-          placeholder='Username'
-          required
-          className='text-xl py-2 rounded-full px-4'
-        />
-        <input 
-          typeof="password" 
-          required
-          placeholder='Password'
-          className='text-xl py-2 rounded-full px-4'
-        />
+import {loginStart, loginSuccess, loginFailed} from '../../redux/userSlice.js';
 
-      <button typeof="submit" className='text-xl py-3 rounded-full px-4 bg-blue-500 text-white'>Signin</button>
-      
-      <p className='text-center text-xl '> Don't Have An Account?</p>
+const Signin = () => { // For the username and Password in signin
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    // for signup form case
+    const [email, setEmail] = useState("");
 
-      
-      <input 
-          typeof="text" 
-          placeholder='Username'
-          required
-          className='text-xl py-2 rounded-full px-4'
-        />
-      
-      <input 
-          typeof="email" 
-          required
-          placeholder='E-mail'
-          className='text-xl py-2 rounded-full px-4'
-        />
+    // initializing the dispatch - is a packet dispatecher of the actions of reducer - dispatch(reducer's action(data given/ taken))
+    // this dispatch go to the given action reducer and after that stores that data into the browser if success
+    const dispatch = useDispatch();
+    // once signed in go to homepage
+    const navigate = useNavigate();
 
-        <input 
-          typeof="password" 
-          required
-          placeholder='Password'
-          className='text-xl py-2 rounded-full px-4'
-        />
+    // When signin button is clicked - we use fetch api for our data
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        // no arg req in the action
+        dispatch(loginStart());
+        try { // fetch our data from the db to see if user exist
+            const res = await axios.post("/auth/signin", {username, password});
+            // once work is complete - send the data given to the redux to store state in browser
+            dispatch(loginSuccess(res.data));
+            // goto homepage once the login is success
+            navigate("/");
+        } catch (error) {
+            dispatch(loginFailed());
+        }
+    };
 
-        <button typeof="submit" className='text-xl py-3 rounded-full px-4 bg-blue-500 text-white'>Signup</button>
+    // for signup funtionality
+    const handleSignup = async (e) => {
+        e.preventDefault();
+        dispatch(loginStart());
 
-      </form>
-  )
+        try {
+            const res = await axios.post("/auth/signup", {username,email,  password, });
+            dispatch(loginSuccess(res.data));
+            navigate("/"); // could be the different pages and the link after signup could be signin page
+        } catch (error) {
+            dispatch(loginFailed());
+        }
+    }
+
+    return (<form className='bg-gray-200 flex flex-col py-12 px-8 rounded-lg w-6/12 mx-auto gap-10 '>
+        <h2 className='text-3xl font-bold text-center'>
+            Signing To Twitter</h2>
+
+        <input onChange={
+                (e) => setUsername(e.target.value)
+            }
+            type="text"
+            required
+            placeholder='Username'
+            className='text-xl py-2 rounded-full px-4'/>
+
+        <input onChange={
+                (e) => setPassword(e.target.value)
+            }
+            type="password"
+            required
+            placeholder='Password'
+            className='text-xl py-2 rounded-full px-4'/>
+
+        <button onClick={handleLogin}
+            type="submit"
+            className='text-xl py-3 rounded-full px-4 bg-blue-500 text-white'>
+            Signin
+        </button>
+
+        <p className='text-center text-xl '>
+            Don't Have An Account?</p>
+
+
+        <input onChange={
+                (e) => setUsername(e.target.value)
+            }
+            type="text"
+            required
+            placeholder='Username'
+            className='text-xl py-2 rounded-full px-4'/>
+
+        <input onChange={
+                (e) => setEmail(e.target.value)
+            }
+            type="email"
+            required
+            placeholder='E-mail'
+            className='text-xl py-2 rounded-full px-4'/>
+
+        <input onChange={
+                (e) => setPassword(e.target.value)
+            }
+            type="password"
+            required
+            placeholder='Password'
+            className='text-xl py-2 rounded-full px-4'/>
+
+        <button onClick={handleSignup}
+            type="submit"
+            className='text-xl py-3 rounded-full px-4 bg-blue-500 text-white'>Signup</button>
+
+    </form>)
 }
 
 export default Signin;

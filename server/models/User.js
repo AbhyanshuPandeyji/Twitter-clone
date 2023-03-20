@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema(
     followers: { type : Array , defaultValue : [] },
     following: { type : Array , defaultValue : [] },
     description: { type: String},
+    profilePicture: {type: String },
     
     // by the assginment
     // location: {type : String},
