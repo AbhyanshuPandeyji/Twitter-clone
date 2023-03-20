@@ -12,10 +12,10 @@ export const verifyToken = ( req , res , next)=>{
     // if token found then check if its the right user token if yes then set the inputed to the user
     jwt.verify(token , process.env.JWT , ( error , user )=>{
         // to handle if the token dosent matched
-        if(error) return next(handleError(403 , "Token is Invalid "));
+        if(error) return next(createError(403 , "Token is Invalid "));
 
         req.user = user;
         // to initiate the next step after finishing this task ( to go to next step of the route)
         next();
     });
-}
+};

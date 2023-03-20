@@ -1,3 +1,4 @@
+// this is for creating tweets
 import React , { useState } from 'react'
 import TimelineTweet from '../TimelineTweet/TimelineTweet.jsx';
 
@@ -42,7 +43,7 @@ const MainTweet = () => {
             {/* here will be all our timeline tweets - fetch all dta of tweets form the backend */}
             <TimelineTweet/>
         </div>
-    )
-}
+    );
+};
 
 export default MainTweet;

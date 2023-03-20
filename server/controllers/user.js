@@ -96,8 +96,8 @@ export const follow = async(req, res, next) => {
 
             // to add following user id to our following array
             await currentUser.updateOne({
-                $push : { following : req.params.id },
-            })
+                $push : { following : req.params.id }
+            });
 
             
         } else {
@@ -133,8 +133,8 @@ export const unfollow = async(req, res, next) => {
 
             // to remove follower from the our user id
             await currentUser.updateOne({
-                $pull : { following : req.params.id },
-            })
+                $pull : { following : req.params.id }
+            });
 
             
         } else {

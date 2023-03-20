@@ -7,13 +7,13 @@ import EditProfile from '../../components/EditProfile/EditProfile.jsx';
 
 
 import {useParams} from 'react-router-dom';
-import {useSelector , useDispatch} from 'react-redux'
+import {useSelector , useDispatch} from 'react-redux';
 import axios from 'axios';
 
-import { following } from '../../redux/userSlice.js'
+import { following } from '../../redux/userSlice.js';
 
 
-import Tweet from '../../components/Tweet/Tweet.jsx'
+import Tweet from '../../components/Tweet/Tweet.jsx';
 
 
 const Profile = () => {
@@ -28,12 +28,9 @@ const Profile = () => {
     const [open, setOpen] = useState(false);
 
 
-    const dispatch = useDispatch();
-
-    console.log("tweets", userTweets);
-    console.log("Profile Data", userProfile);
-    // taking our current user id and other  user id from the url
     const {id} = useParams();
+    const dispatch = useDispatch();
+    // taking our current user id and other  user id from the url
 
     // fetch data on profile
     useEffect(() => {
@@ -62,7 +59,7 @@ const Profile = () => {
         if(!currentUser.following.includes(id)){
             try {
                 
-                const follow = await axios.put(`/user/follow/${id}`,{
+                const follow = await axios.put(`/users/follow/${id}`,{
                     id: currentUser._id,
                 });
                 dispatch(following(id));
@@ -102,11 +99,11 @@ const Profile = () => {
                         {
                         currentUser._id === id ? (
                             <button onClick={()=> setOpen(true)} className='px-4 py-2 bg-blue-500 rounded-full text-white' >Edit Profile</button>
-                        ) : currentUser.following.includes(id) ? (
+                        ) : (currentUser.following.includes(id) ? (
                             <button onClick={handleFollow} className='px-4 py-2 bg-blue-500 rounded-full text-white'>Following</button>
                         ) : (
                             <button onClick={handleFollow} className='px-4 py-2 bg-blue-500 rounded-full text-white'>Follow</button>
-                        )
+                        ))
                     } </div>
                     {/* buttons end */}
                     {/* showing the data of the user profile */}

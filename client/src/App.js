@@ -6,6 +6,7 @@ import Home from '../src/pages/Home/Home.jsx'
 import Profile from '../src/pages/Profile/Profile.jsx' 
 import Explore from '../src/pages/Explore/Explore.jsx' 
 import Signin from '../src/pages/Signin/Signin.jsx' 
+import Signup from '../src/pages/Signup/Signup.jsx' 
 import Error from '../src/pages/Error/Error.jsx' 
 
 import {createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
@@ -13,7 +14,7 @@ import {createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
 
 const Layout = () => {
     return (
-        <div className='md:8/12 mx-auto container'>
+        <div className='md:w-8/12 mx-auto'>
           {/* constant component */}
           <Navbar />
           {/* swap different pages routes */}
@@ -50,13 +51,18 @@ const router = createBrowserRouter([
         element: <Signin/>,
       },
       {
+        // go to signinpage
+        path: "/Signup",
+        element: <Signup/>,
+      },
+      {
         // go back to singin after logout
         path: "/signout",
         element: <Signin/>,
       }
-    ]
-  }
-])
+    ],
+  },
+]);
 
 
 function App() {

@@ -28,6 +28,7 @@ const Tweet = ({tweet, setData}) => { // current user login
     // bringing id form the url 
     const {id} = useParams();
 
+    console.log(location);
     useEffect(() => {
         const fetchData = async () => {
 
@@ -87,7 +88,7 @@ const Tweet = ({tweet, setData}) => { // current user login
             {userData && <> 
             <div className='flex space-x-2'>
                 {/* this will be our profile picture of our tweet */}
-                <img src="" alt=""/> 
+                {/* <img src="" alt=""/>  can be used */}
                 {/* link to profile of the tweeter */}
                 <Link to={`/profile/${userData._id}`}>
                     <h3 className='font-bold'>{userData.username}</h3>
@@ -101,7 +102,7 @@ const Tweet = ({tweet, setData}) => { // current user login
             <p>{tweet.description}</p>
             {/* implementing like and dislike funtionality */}
             <button onClick={handleLike}>{tweet.likes.includes(currentUser._id) ? 
-            (<FavoriteIcon className='mr-2 my-2 cursor-pointer'></FavoriteIcon>):
+            (<FavoriteIcon className='mr-2 my-2 cursor-pointer red'></FavoriteIcon>):
             (<FavoriteBorderIcon  className='mr-2 my-2 cursor-pointer'></FavoriteBorderIcon>)  }
             {/* number of likes */}
             {tweet.likes.length}

@@ -49,7 +49,7 @@ export const LikeOrDislike = async (req, res, next) => {
         const tweet = await Tweet.findById(req.params.id);
 
         // if the user is not include in the likes then include it
-        if (! tweet.likes.includes(req.body.id)) {
+        if (!tweet.likes.includes(req.body.id)) {
             await tweet.updateOne({
                 $push: {
                     likes: req.body.id

@@ -16,7 +16,7 @@ const Error = () => {
         Login
         </Link>
     </div>
-  )
-}
+  );
+};
 
 export default Error;

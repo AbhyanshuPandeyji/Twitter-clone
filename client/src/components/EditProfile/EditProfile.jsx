@@ -58,17 +58,25 @@ const EditProfile = ({setOpen}) => { // current logged in user
                     }`, { // passing the url of the picture in the profilePicture string in the user data
                         profilePicture: downloadURL
                     });
+                console.log(updateProfile);
 
                 } catch (error) {
                     console.log('error', error)
                 }
 
                 // got to redux to change profile
+                console.log("downloaded" + downloadURL);
                 dispatch(changeProfile(downloadURL));
 
             });
-        })
+        });
     };
+    
+        const handleDelete = async () => {
+            const deleteProfile = await axios.delete(`/users/${currentUser._id}`);
+            dispatch(logout());
+            navigate("/signin");
+        };
 
 
     // to refresh when upload an image
@@ -76,12 +84,6 @@ const EditProfile = ({setOpen}) => { // current logged in user
         img && uploadImg(img);
 
     }, [img]);
-
-    const handleDelete = async() => {
-        const deleteProfile = await axios.delete(`/users/${currentUser._id}`);
-        dispatch(logout());
-        navigate("/signin");
-    };
 
     return (
         <div className='absolute w-full h-full top-0 left-0 bg-transparent flex items-center justify-center'>
@@ -91,7 +93,7 @@ const EditProfile = ({setOpen}) => { // current logged in user
                         () => setOpen(false)
                     }
                     className='absolute top-3 right-3  cursor-pointer'>X</button>
-                <h2 className='font-bold'>Edit Profile</h2>
+                <h2 className='font-bold text-xl'>Edit Profile</h2>
                 <p>Choose a new profile picture</p>
                 {/* to upload the image using firebase */}
                 {
@@ -105,7 +107,7 @@ const EditProfile = ({setOpen}) => { // current logged in user
                     className='bg-red-500 text-white py-2 rounded-full'>Delete Account</button>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default EditProfile;
