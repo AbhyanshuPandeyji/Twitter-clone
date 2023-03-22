@@ -29,7 +29,7 @@ const Signup = () => { // For the username and Password in signin
         dispatch(loginStart());
 
         try {
-            const res = await axios.post("/auth/signup", {username,email,  password, });
+            const res = await axios.post("/auths/signup", {username,email,  password, });
             dispatch(loginSuccess(res.data));
             navigate("/signin"); // could be the different pages and the link after signup could be signin page
         } catch (error) {

@@ -26,7 +26,7 @@ const Signin = () => { // For the username and Password in signin
         // no arg req in the action
         dispatch(loginStart());
         try { // fetch our data from the db to see if user exist
-            const res = await axios.post("/auth/signin", {username, password});
+            const res = await axios.post("/auths/signin", {username, password});
             // once work is complete - send the data given to the redux to store state in browser
             dispatch(loginSuccess(res.data));
             // goto homepage once the login is success
